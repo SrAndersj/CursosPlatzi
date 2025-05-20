@@ -44,6 +44,8 @@ console.log(firstFruit);
 const numberOfFruits = fruits.length;
 console.log(numberOfFruits);
 
+//MUTABILIDAD
+
 // Mutability
 
 fruits.push("watermelon");

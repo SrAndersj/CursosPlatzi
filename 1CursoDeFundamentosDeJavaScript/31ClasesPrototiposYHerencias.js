@@ -29,9 +29,18 @@ class Perro extends Animal {
   }
 }
 
-const perro = new Perro("firulais", "perro", "pastor aleman");
+const perro1 = new Perro("firulais", "perro", "pastor aleman");
 
-console.log(perro);
+console.log(perro1);
 
-perro.correr();
-perro.emitirSonido();
+perro1.correr();
+perro1.emitirSonido();
+
+perro1.nuevoMetodo = function () {
+  console.log("Este es un nuevo metodo");
+};
+
+// nuevo metodo creado en el prototipo
+Perro.prototype.segundoMetodo2 = function () {
+  console.log("Este es un segundo metodo creado en el prototipo");
+};

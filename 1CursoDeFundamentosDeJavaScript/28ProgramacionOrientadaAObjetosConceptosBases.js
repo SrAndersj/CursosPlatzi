@@ -24,5 +24,3 @@ const persona = {
     console.log(`hola, mi nombre es ${persona.nombre}`);
   },
 };
-
-/

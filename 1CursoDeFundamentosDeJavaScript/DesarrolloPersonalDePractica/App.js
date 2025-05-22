@@ -13,8 +13,12 @@ let dibujando = false;
 
 // Es true cuando está dibujando y false cuando no.
 
+let currentStroke = []; // Guarda los puntos del trazo actual
+let allStrokes = []; // Guarda todos los trazos
+
 canvas.addEventListener("mousedown", (e) => {
   dibujando = true;
+  currentStroke.push({ x: e.offsetX, y: e.offsetY }); // guardamos punto actual
   ctx.beginPath();
   ctx.moveTo(e.offsetX, e.offsetY);
 });
@@ -33,6 +37,7 @@ canvas.addEventListener("mousedown", (e) => {
 
 canvas.addEventListener("mousemove", (e) => {
   if (dibujando) {
+    currentStroke.push({ x: e.offsetX, y: e.offsetY }); // guardamos punto actual
     ctx.lineTo(e.offsetX, e.offsetY);
     ctx.stroke();
   }
@@ -51,4 +56,5 @@ canvas.addEventListener("mousemove", (e) => {
 
 canvas.addEventListener("mouseup", () => {
   dibujando = false;
+  allStrokes.push(currentStroke); // guardamos trazo completo
 });

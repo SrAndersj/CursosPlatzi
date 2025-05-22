@@ -58,3 +58,83 @@ canvas.addEventListener("mouseup", () => {
   dibujando = false;
   allStrokes.push(currentStroke); // guardamos trazo completo
 });
+
+// ______________________________________________
+// REPRODUCIR EL DIBUJO
+
+function replay() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // limpia el canvas
+
+  strokeIndex = 0;
+  pointIndex = 0;
+  drawStep();
+}
+
+let strokeIndex = 0;
+let pointIndex = 0;
+
+// strokeIndex para saber qué trazo (línea) vamos a dibujar.
+// pointIndex para saber qué punto dentro de ese trazo estamos pintando.
+
+function drawStep() {
+  if (strokeIndex >= allStrokes.length) {
+    return;
+  }
+  // Aquí se pregunta: ¿ya terminamos de dibujar todos los trazos que
+  // tenemos guardados?
+
+  // Si strokeIndex (el índice del trazo que estamos dibujando)
+  // es igual o mayor que la cantidad total de trazos, significa
+  // que no queda nada más que dibujar, así que la función termina
+  // con return;
+
+  const stroke = allStrokes[strokeIndex];
+  // Aquí agarramos el trazo que vamos a dibujar ahora.
+
+  // stroke es un array de puntos, cada punto tiene coordenadas x e y.
+
+  if (pointIndex === 0) {
+    ctx.beginPath();
+    ctx.moveTo(stroke[0].x, stroke[0].y);
+  }
+
+  // pointIndex es un contador que indica qué punto dentro del trazo estamos dibujando.
+
+  // Si es 0, quiere decir que estamos comenzando un nuevo trazo, entonces se inicia un nuevo camino con beginPath().
+
+  // Se mueve el "pincel" del canvas a la posición del primer punto sin dibujar, para preparar el trazo.
+
+  if (pointIndex < stroke.length) {
+    const point = stroke[pointIndex];
+    ctx.lineTo(point.x, point.y);
+    ctx.stroke();
+
+    pointIndex++;
+
+    requestAnimationFrame(drawStep);
+
+    // Mientras queden puntos por dibujar en el trazo (pointIndex < stroke.length):
+
+    // Obtenemos el punto actual.
+
+    // Dibujamos una línea desde el punto anterior hasta el actual con ctx.lineTo(point.x, point.y).
+
+    // Pintamos la línea en el canvas con ctx.stroke().
+
+    // Incrementamos pointIndex para pasar al siguiente punto.
+
+    // Usamos requestAnimationFrame(drawStep) para llamar a drawStep otra vez en el siguiente frame, creando así la animación.
+  } else {
+    strokeIndex++;
+    pointIndex = 0;
+    drawStep();
+
+    // Si ya no quedan puntos en el trazo actual:
+
+    // Incrementamos strokeIndex para pasar al siguiente trazo.
+
+    // Reiniciamos pointIndex a cero para empezar desde el principio del siguiente trazo.
+
+    // Llamamos a drawStep para continuar la animación con el nuevo trazo.
+  }
+}

@@ -138,3 +138,14 @@ function drawStep() {
     // Llamamos a drawStep para continuar la animación con el nuevo trazo.
   }
 }
+
+// ---------------------
+//botones asignacion
+document.getElementById("btnReplay").addEventListener("click", () => {
+  replay();
+});
+
+document.getElementById("btnClear").addEventListener("click", () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // limpia el canvas
+  allStrokes = [];
+});

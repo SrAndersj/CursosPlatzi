@@ -21,3 +21,23 @@ async function fetchData() {
     console.log(error);
   }
 }
+
+// Que pasaria si tuvieramos que hacer mas de una peticion ?
+
+const urls = [
+  "https://rickandmortyapi.com/api/character",
+  "https://rickandmortyapi.com/api/episode",
+  "https://rickandmortyapi.com/api/location",
+];
+
+async function fetchNewData() {
+  try {
+    for await (let url of urls) {
+      let response = await fetch(url);
+      let data = await response.json();
+      console.log(data);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}

@@ -18,7 +18,8 @@ let allStrokes = []; // Guarda todos los trazos
 
 canvas.addEventListener("mousedown", (e) => {
   dibujando = true;
-  currentStroke.push({ x: e.offsetX, y: e.offsetY }); // guardamos punto actual
+  currentStroke = [{ x: e.offsetX, y: e.offsetY }];
+
   ctx.beginPath();
   ctx.moveTo(e.offsetX, e.offsetY);
 });
@@ -56,7 +57,8 @@ canvas.addEventListener("mousemove", (e) => {
 
 canvas.addEventListener("mouseup", () => {
   dibujando = false;
-  allStrokes.push(currentStroke); // guardamos trazo completo
+  allStrokes.push(currentStroke);
+  ctx.beginPath(); // importante para romper conexión entre trazos
 });
 
 // ______________________________________________
@@ -148,4 +150,5 @@ document.getElementById("btnReplay").addEventListener("click", () => {
 document.getElementById("btnClear").addEventListener("click", () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height); // limpia el canvas
   allStrokes = [];
+  currentStroke = [];
 });

@@ -30,3 +30,7 @@ En lugar de repetir atributos y métodos comunes, las clases hijas pueden hereda
 ```js
 USAMOS EXTENDS
 ```
+
+## polimorfismo
+
+Herencia con esteroides

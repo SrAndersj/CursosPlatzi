@@ -1,3 +1,7 @@
+# from pytz import country_timezones
+
+
+import zoneinfo
 from fastapi import FastAPI  #la F es mayuscula indicando que es
 #una clase 
 from datetime import datetime
@@ -14,12 +18,25 @@ async def root():
     return {"message": "Bienvenido a mi API FastAPI!"}   
 
 
-@app.get("/hora")
-async def get_hora():
-    # Obtener la hora actual en UTC
-    hora_actual = datetime.now() #da la hora actual en UTC
-    
-    return {
-        "hora": hora_actual.strftime("%Y-%m-%d %H:%M:%S"),
-        "timezone": "UTC"
-    }
+
+country_timezones = {
+    "CO": "America/Bogota",
+    "MX": "America/Mexico_City",
+    "PE": "America/Lima",   
+    "BR": "America/Sao_Paulo",
+}
+
+
+
+
+@app.get("/time/{iso_code}")
+async def time(iso_code: str):
+    iso = iso_code.upper()
+    timezone_str = country_timezones.get(iso)
+    tz = zoneinfo.ZoneInfo(timezone_str)
+
+    return {  timezone_str +  "time":datetime.now(tz)}
+
+
+    # podemo usarlo  
+    # http://127.0.0.1:8000/time/co

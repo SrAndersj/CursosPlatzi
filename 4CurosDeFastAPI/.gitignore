@@ -1,0 +1,7 @@
+# Excluye el entorno virtual y todo su contenido
+# Esto incluye: bin/, include/, lib/, lib64/, pyvenv.cfg y cualquier otro archivo/directorio
+curso-FastAPI/
+
+# Excluye archivos compilados de Python y directorios de caché
+__pycache__/
+*.pyc

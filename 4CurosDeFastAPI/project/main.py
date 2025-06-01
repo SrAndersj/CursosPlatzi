@@ -5,7 +5,17 @@ import zoneinfo
 from fastapi import FastAPI  #la F es mayuscula indicando que es
 #una clase 
 from datetime import datetime
+from pydantic import BaseModel
 
+
+
+class Customer(BaseModel):
+    name: str
+    description: str |None
+    email: str |None
+    age: int |None
+    
+    
 
 
 app = FastAPI()
@@ -40,3 +50,11 @@ async def time(iso_code: str):
 
     # podemo usarlo  
     # http://127.0.0.1:8000/time/co
+
+
+
+#api rest usa post  , una api reste es un protocolo que define como debe funcionar
+# 
+@app.post("/customers")
+async def create_customer(customer_data: Customer):
+    return customer_data

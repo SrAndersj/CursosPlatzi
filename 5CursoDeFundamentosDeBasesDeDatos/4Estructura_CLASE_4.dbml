@@ -20,7 +20,7 @@ Table "products" {
 Table bills {
   bill_id int [pk, not null, increment]
   client_id int [not null, ref: > clients.client_id]
-  total int [not null]
+  total float [not null]
   status enum(open, partial, paid, closed) [not null, default: "open"]
   created_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
   modified_at timestamp [not null, default: `CURRENT_TIMESTAMP`]

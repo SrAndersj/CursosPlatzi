@@ -1,0 +1,34 @@
+Table "clients" {
+  client_id int [pk, not null, increment]
+  name varchar(100) [not null]
+  email varchar(30) [not null, unique]
+  phone_number varchar(15)
+  created_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
+  modified_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
+}
+
+Table "products" {
+  product_id int [pk, not null, increment]
+  name varchar(50) [not null, unique]
+  slug varchar(50) [not null, unique]
+  description text
+  price double(8,2)
+  created_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
+  modified_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
+}
+
+Table bills {
+  bill_id int [pk, not null, increment]
+  client_id int [not null, ref: > clients.client_id]
+  total int [not null]
+  status enum(open, partial, paid, closed) [not null, default: "open"]
+  created_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
+  modified_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
+}
+
+Table bill_products {
+  bill_product_id int [pk, not null, increment]
+  product_id int [not null, ref: > products.product_id]
+  bill_id int [not null, ref: > bills.bill_id]
+  quantity int
+}

@@ -32,7 +32,7 @@ app.on("ready", () => {
     app.quit();
   });
 
-  win.loadURL("https://devdocs.io/");
+  win.loadURL(`file://${__dirname}/renderer/index.html`);
 });
 
 app.on("before-quit", () => {
